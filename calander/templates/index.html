@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IgnitesChronoForge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>ChronoForge: The TimeWise Navigator</h1>
+        <p> {{ current_time }}</p>
+        <form method="post">
+            <label for="year">Enter the year:</label>
+            <input type="text" id="year" name="year" required>
+            <label for="month">Enter the month (1-12):</label>
+            <input type="text" id="month" name="month" required>
+            <button type="submit">Generate Calendar</button>
+        </form>
+
+        {% if header %}
+        <h2>{{ header }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    {% for day in weekdays %}
+                    <th>{{ day }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for week in cal %}
+                <tr>
+                    {% for day in week %}
+                    <td>{{ day if day != 0 else '' }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
